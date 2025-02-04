@@ -1,0 +1,28 @@
+name: Load Test
+
+on: [push]
+
+jobs:
+  load-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Set file permissions
+      run: chmod 755 summary.json
+
+    - name: Run k6 load test
+      run: |
+        npm install -g k6
+        k6 run --summary-export=summary.json webscript.js
+
