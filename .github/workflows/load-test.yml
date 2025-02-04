@@ -18,11 +18,8 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Set file permissions
-      run: chmod 755 summary.json
-
-    - name: Run k6 load test
+    - name: Run k6 load test using npx
       run: |
         npm install -g k6
-        k6 run --summary-export=summary.json webscript.js
+        npx k6 run --summary-export=summary.json webscript.js
 
